@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-# Project Folder Template
-
 开发流程基础文件夹
 
-目录结构介绍    这是LED工程的测试文件
+目录结构介绍
 
 ```
 ├─00_Project_Management				/*项目管理，存放项目管理类文件*/
@@ -57,6 +54,3 @@ find ./ -type d -empty -not -path "./.git/*" -exec touch {}/.gitkeep \;
 
 - [搞嵌入式，文件很多很乱？当始一个新的嵌入式项目，必做的准备工作--工程文件夹归档](https://www.bilibili.com/video/BV1E1421i7wJ/)
 
-=======
-
->>>>>>> 9b876eb564c430423ed804723c8f60611bad5210
