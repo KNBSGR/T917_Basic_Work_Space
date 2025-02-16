@@ -1,4 +1,4 @@
-开发流程基础文件夹
+07_Basic_Helloword_Git_作业
 
 目录结构介绍 TEST
 
@@ -31,26 +31,3 @@
 ├─06_FCT							/*产品批量测试工具/上位机*/
 └─07_Tools							/*开发流程自动化工具/脚本*/
 ....
-```
-
-
-
-- 使用`git bash`删除每个目录下的`.gitkeep`文件
-
-```bash
-find . -type d -not -path "*/.git*" -exec rm -f {}/.gitkeep \;
-
-```
-
-- 为空文件夹增加`.gitkeep`文件
-
-```bash
-find ./ -type d -empty -not -path "./.git/*" -exec touch {}/.gitkeep \;
-```
-
-
-
-参考
-
-- [搞嵌入式，文件很多很乱？当始一个新的嵌入式项目，必做的准备工作--工程文件夹归档](https://www.bilibili.com/video/BV1E1421i7wJ/)
-
