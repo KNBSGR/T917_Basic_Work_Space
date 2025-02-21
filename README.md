@@ -1,4 +1,4 @@
-07_【平行基础】基于 Cubemx 搭建 FreeRTOS 输出Helloword工程 & Git 的使用_作业
+08_【平行基础】基于 Helloworld工程熟悉 keil 调试并了解代码规范_作业
 
 目录结构介绍 TEST
 
