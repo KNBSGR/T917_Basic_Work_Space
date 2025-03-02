@@ -25,7 +25,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "T917_BSP_Key.h"
+#include "T917_BSP_LED.h"
+#include "queue.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,6 +48,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 
+
+
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -57,7 +61,6 @@ const osThreadAttr_t defaultTask_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -96,6 +99,8 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  Key_TaskHandle = osThreadNew(Key_Task_F, NULL, &Key_Task_attributes);
+  led_TaskHandle = osThreadNew(led_task_func, NULL, &led_Task_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -115,16 +120,37 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
-  for(;;)
-  {                                                       
-		printf("This is a TEST!\r\n");
-    osDelay(1000);
-  }
+	uint32_t received_value = 0;
+	led_operation_t   led_ops_value =  LED_ON;
+	for(;;)
+	{                                                       
+//		printf("StartDefaultTask\r\n");
+    if( key_queue != 0 )
+	{
+		// Receive a message on the created queue.  Block for 10 ticks if a
+		// message is not immediately available.
+		if( xQueueReceive( key_queue, &( received_value ), ( TickType_t ) 100 ) )
+		{
+			// pcRxedMessage now points to the struct AMessage variable posted
+			// by vATask.
+            printf("received queue value = [%d]" , received_value);
+			
+			led_ops_value = LED_TOGGLE;
+            if ( pdTRUE == xQueueSendToFront(led_queue,&led_ops_value,0))
+            {
+                printf("led send successfully\r\n");
+            }
+            
+		}
+	}
+	osDelay(1);
+	}
   /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+
 
 /* USER CODE END Application */
 
